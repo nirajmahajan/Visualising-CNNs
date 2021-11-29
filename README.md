@@ -8,7 +8,7 @@ Implemented as a course project for CS 689 (Machine Learning: Theory and Methods
 
 Visualisation techniques for CNNs are an important field to understand the "blackbox" our conventional CNNs are. This paper [1] introduces us to a widely used visualisation technique known as "Class Activation Mappings" (or CAMs). The authors propose a simple but effective technique to identify the object pixels in an image by extracting information from the conv layers output that is normally lost when passed through the FC layers. Despite the simplicity of the method, CAMs achieve comparable results with SOTA methods in object detection on popular datasets like ILSVRC.
 
-In this project, I have explored the applications of CAM on several architecture-dataset combination and contrasted the results with another popular visualisation technique using saliency maps, proposed by *Simonyan et al* [2]. I have also implemented weakly supervised number detection in the wild as an application of feature localisation using Class Activation Mappings. Furthermore, to expose the vulnerabilities of CNNs to manipulations and attacks, I have demonstrated the change in the classification scores with variation in a few object and non object pixels.
+In this project, I have explored the applications of CAM on several architecture-dataset combination and contrasted the results with another popular visualisation technique using saliency maps, proposed by *Simonyan et al* [2]. I have also implemented weakly supervised number detection in the wild as an application of feature localisation using Class Activation Mappings. 
 
 ## Setup
 
@@ -109,25 +109,62 @@ I have used the vgg16 architecture as the skeleton for all experiments. All the 
 
 ```bash
 $ cd src/
-$ 
+$ python3 main.py --dataset <Dataset Name> --cuda <GPU ID>					# Start Training
+# The gpu_id must be set -1 in case training on CPU
+# Dataset Name should be from ['CIFAR10', 'CIFAR100', 'DIGITS']
+$ python3 main.py --dataset <Dataset Name> --cuda <GPU ID> --resume			# Resume Training
+$ python3 main.py --dataset <Dataset Name> --cuda <GPU ID> --resume --eval	# Evaluate
 ```
 
-The pre-trained weights are already loaded in the repository.
+## Results - CAM + Saliency
 
-## Tuning of hyper parameters TODO
+In this section, I have attached the visualisation results for CIFAR10 with VGG16. 
 
-We have further tuned the hyper parameters for the training by running over 30 experiments. More details about the experiments can be found [here](https://github.com/nirajmahajan/Low-Light-Enhancement-Using-Deep-Retinex-Decomposition/tree/master/experiments).
+All the generated results can be found [here](https://github.com/nirajmahajan/Visualising-CNNs/tree/master/results). 
 
-## Results and Observations TODO 
+<p align="center">
+  <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/results/CIFAR10/test/class_1_0.png" />
+</p>
 
-In this section, we have attached our own results after training the model from scratch. The trained model gave good results in almost all cases. But we also noticed that in very few cases the Illuminance misbehaved, ie, gave extremely high values which generated abnormally bright and cloudy images.
+<p align="center">
+  <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/results/CIFAR10/test/class_2_0.png" />
+</p>
 
-All our generated results can be found [here](https://github.com/nirajmahajan/Low-Light-Enhancement-Using-Deep-Retinex-Decomposition/tree/master/results). We tested the performance on two separate sets of images:
+<p align="center">
+  <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/results/CIFAR10/test/class_3_4.png" />
+</p>
 
-1. Known Images: Test images that are from similar locations as the training data. (Of course they are not used for training)
-2. Unknown Images: Completely foreign images
+<p align="center">
+  <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/results/CIFAR10/test/class_6_2.png" />
+</p>
 
-We have attached a few results here:
+<p align="center">
+  <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/results/CIFAR10/test/class_8_1.png" />
+</p>
+
+## Results - WSOL
+
+In this section, I have attached the results for Weakly Supervised Object Localisation - specifically Digit recognition in the wild. I have trained a binary classifier to distinguish between images with and without text in the wild. Such a classifier will need to focus on instances of text to perform classification. A few results are attached in this section.
+
+All the generated results can be found [here](https://github.com/nirajmahajan/Visualising-CNNs/tree/master/results). 
+
+<p align="center">
+  <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/results/DIGITS/test/class_1_0.png" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/results/DIGITS/test/class_1_6.png" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/results/DIGITS/test/class_1_3.png" />
+</p>
+
+We can see that the WSOL results are suboptimal and the CAM detection is not exactly on the text. This is because the dataset is really small (~300 images) and the model sees to be overfitting on the data. Also there is a stark difference in the dataset colours. The model can simply look at the top region of the images (ie the sky) and can easily distinguish the classes by the colors.
+
+## Future Work
+
+I am planning to train an "eye detector" using this method by training a binary classifier to distinguish glasses vs no-glasses. Both these classes need to look at the information near the eyes and naturally the CAMs will focus on the eyes, leading to WSOL.
 
 ## Contributors
 
