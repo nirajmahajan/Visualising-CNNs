@@ -51,15 +51,14 @@ I have used several datasets for this project:
 
 1. [CIFAR10 [3]](https://www.cs.toronto.edu/~kriz/cifar.html)
 2. [CIFAR100 [3]](https://www.cs.toronto.edu/~kriz/cifar.html)
-3. [MNIST [4]](http://yann.lecun.com/exdb/mnist/)
-4. [Houses Dataset [5]](https://github.com/emanhamed/Houses-dataset) (Only the frontal images)
-5. [SVT Dataset [6]](http://tc11.cvc.uab.es/datasets/SVT_1)
+4. [Houses Dataset [4]](https://github.com/emanhamed/Houses-dataset) (Only the frontal images)
+5. [SVT Dataset [5]](http://tc11.cvc.uab.es/datasets/SVT_1)
 
 The directory structure should be as follows: 
 
 ```bash
-src
-└── dataset
+Visualising-CNNs
+└── datasets
     ├── CIFAR10
     │   ├── cifar-10-batches-py
     │   │   ├── batches.meta
@@ -77,30 +76,20 @@ src
     │   │   ├── test
     │   │   └── train
     │   └── cifar-100-python.tar.gz
-    ├── Digit_detection
-    │   ├── 0
-    │   │   ├── houses_image_0.png
-    │   │   ├── houses_image_1.png
-    │   │   ├── .....
-    │   │   └── houses_image_n.png
-    │   └── 1
-    │       ├── svt_image_0.png
-    │       ├── svt_image_1.png
-    │       ├── .....
-    │       └── svt_image_n.png
-    └── MNIST
-        ├── processed
-        │   ├── test.pt
-        │   └── training.pt
-        └── raw
-            ├── t10k-images-idx3-ubyte
-            ├── t10k-labels-idx1-ubyte
-            ├── train-images-idx3-ubyte
-            └── train-labels-idx1-ubyte
-
+    └── Digit_detection
+        ├── 0
+        │   ├── houses_image_0.png
+        │   ├── houses_image_1.png
+        │   ├── .....
+        │   └── houses_image_n.png
+        └── 1
+            ├── svt_image_0.png
+            ├── svt_image_1.png
+            ├── .....
+            └── svt_image_n.png
 ```
 
-NOTE: The CIFAR10, CIFAR100, MNIST datasets are downloaded from the loader provided by the pytorch library.
+NOTE: The CIFAR10, CIFAR100 datasets are downloaded from the loader provided by the pytorch library.
 
 ## Training Method
 
@@ -144,8 +133,6 @@ We have attached a few results here:
    Karen Simonyan, Andrea Vedaldi, Andrew Zisserman
 3. Learning Multiple Layers of Features from Tiny Images;
    Alex Krizhevsky, 2009.
-4. MNIST handwritten digit database;
-   LeCun, Yann and Cortes, Corinna
 5. House price estimation from visual and textual features;
    Ahmed, Eman and Moustafa, Mohamed.
 6. The Street View Text Dataset (SVT);
