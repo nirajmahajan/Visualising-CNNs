@@ -8,7 +8,7 @@ Implemented as a course project for CS 689 (Machine Learning: Theory and Methods
 
 Visualisation techniques for CNNs are an important field to understand the "blackbox" our conventional CNNs are. This paper [1] introduces us to a widely used visualisation technique known as "Class Activation Mappings" (or CAMs). The authors propose a simple but effective technique to identify the object pixels in an image by extracting information from the conv layers output that is normally lost when passed through the FC layers. Despite the simplicity of the method, CAMs achieve comparable results with SOTA methods in object detection on popular datasets like ILSVRC.
 
-In this project, I have explored the applications of CAM on several architecture-dataset combination and contrasted the results with another popular visualisation technique using saliency maps, proposed by *Simonyan et al* [2]. I have also implemented weakly supervised number detection in the wild as an application of feature localisation using Class Activation Mappings. 
+In this project, we have explored the applications of CAM on several architecture-dataset combination and contrasted the results with another popular visualisation technique using saliency maps, proposed by *Simonyan et al* [2]. We have also implemented weakly supervised number detection in the wild as an application of feature localisation using Class Activation Mappings. 
 
 ## Setup
 
@@ -53,7 +53,7 @@ This derivative can easily be computed using the backprop operation implemented 
 
 ## Datasets used
 
-I have used several datasets for this project:
+We have used several datasets for this project:
 
 1. [CIFAR10 [3]](https://www.cs.toronto.edu/~kriz/cifar.html)
 2. [CIFAR100 [3]](https://www.cs.toronto.edu/~kriz/cifar.html)
@@ -99,7 +99,7 @@ NOTE: The CIFAR10, CIFAR100 datasets are downloaded from the loader provided by 
 
 ## Training Method
 
-I have used the vgg16 architecture as the skeleton for all experiments. All the layers after the conv-5 are replaced by a Global Average Pooling and a Single Linear Layer.
+We have used the vgg16 architecture as the skeleton for all experiments. All the layers after the conv-5 are replaced by a Global Average Pooling and a Single Linear Layer.
 
 <p align="center">
   <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/images/mod_vgg16.png" width="600" height="350" />
@@ -118,7 +118,7 @@ $ python3 main.py --dataset <Dataset Name> --cuda <GPU ID> --resume --eval	# Eva
 
 ## Results - CAM + Saliency
 
-In this section, I have attached the visualisation results for CIFAR10 with VGG16. 
+In this section, we have attached the visualisation results for CIFAR10 with VGG16. 
 
 All the generated results can be found [here](https://github.com/nirajmahajan/Visualising-CNNs/tree/master/results). 
 
@@ -144,7 +144,7 @@ All the generated results can be found [here](https://github.com/nirajmahajan/Vi
 
 ## Results - WSOL
 
-In this section, I have attached the results for Weakly Supervised Object Localisation - specifically Digit recognition in the wild. I have trained a binary classifier to distinguish between images with and without text in the wild. Such a classifier will need to focus on instances of text to perform classification. A few results are attached in this section.
+In this section, we have attached the results for Weakly Supervised Object Localisation - specifically Digit recognition in the wild. We have trained a binary classifier to distinguish between images with and without text in the wild. Such a classifier will need to focus on instances of text to perform classification. A few results are attached in this section.
 
 All the generated results can be found [here](https://github.com/nirajmahajan/Visualising-CNNs/tree/master/results). 
 
@@ -164,7 +164,7 @@ We can see that the WSOL results are suboptimal and the CAM detection is not exa
 
 ## Future Work
 
-I am planning to train an "eye detector" using this method by training a binary classifier to distinguish glasses vs no-glasses. Both these classes need to look at the information near the eyes and naturally the CAMs will focus on the eyes, leading to WSOL.
+We are planning to train an "eye detector" using this method by training a binary classifier to distinguish glasses vs no-glasses. Both these classes need to look at the information near the eyes and naturally the CAMs will focus on the eyes, leading to WSOL.
 
 ## Contributors
 
