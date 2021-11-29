@@ -105,14 +105,14 @@ I have used the vgg16 architecture as the skeleton for all experiments. All the 
   <img src="https://github.com/nirajmahajan/Visualising-CNNs/blob/master/images/mod_vgg16.png" width="600" height="350" />
 </p>
 
-## Usage of Code TODO
+## Usage of Code
 
 ```bash
 $ cd src/
-$ python3 main.py --dataset <Dataset Name> --cuda <GPU ID>					# Start Training
+$ python3 main.py --dataset <Dataset Name> --cuda <GPU ID>                      # Start Training
 # The gpu_id must be set -1 in case training on CPU
 # Dataset Name should be from ['CIFAR10', 'CIFAR100', 'DIGITS']
-$ python3 main.py --dataset <Dataset Name> --cuda <GPU ID> --resume			# Resume Training
+$ python3 main.py --dataset <Dataset Name> --cuda <GPU ID> --resume	        # Resume Training
 $ python3 main.py --dataset <Dataset Name> --cuda <GPU ID> --resume --eval	# Evaluate
 ```
 
