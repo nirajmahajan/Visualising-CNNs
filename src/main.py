@@ -50,7 +50,7 @@ TRAIN_BATCH_SIZE = 16
 TEST_BATCH_SIZE = 20
 lr = 1e-3
 SAVE_INTERVAL = 1
-NUM_EPOCHS = 1
+NUM_EPOCHS = 100
 torch.autograd.set_detect_anomaly(True)
 
 checkpoint_path = './checkpoints/{}/'.format(args.dataset)
@@ -102,14 +102,14 @@ if args.resume:
     optimizer.load_state_dict(dic['optimizer'])
     losses = dic['losses']
     accuracies = dic['accuracies']
-    testaccuracies = dic['testaccuracies']
+    # testaccuracies = dic['testaccuracies']
     print('Resuming Training after {} epochs'.format(pre_e))
 else:
     model_state = 0
     pre_e =0
     losses = []
     accuracies = []
-    testaccuracies = []
+    # testaccuracies = []
     print('Starting Training')
 
 def train(e):
@@ -119,9 +119,12 @@ def train(e):
     tot = 0
 
     for batch_num,(images, labels) in tqdm(enumerate(trainloader), desc = 'Epoch {}'.format(e), total = len(trainloader)):
+        optimizer.zero_grad()
         model.train()
         outp = model(images.to(device))
         loss = criterion(outp, labels.to(device))
+        loss.backward()
+        optimizer.step()
 
         preds = torch.max(outp,1)[1]
         tot_correct += (preds == labels.to(device)).sum()
@@ -222,7 +225,7 @@ for e in range(NUM_EPOCHS):
     # ta = test(e)
     losses.append(l)
     accuracies.append(a)
-    testaccuracies.append(ta)
+    # testaccuracies.append(ta)
     
     dic = {}
     dic['e'] = e+1
@@ -230,7 +233,7 @@ for e in range(NUM_EPOCHS):
     dic['optimizer'] = optimizer.state_dict()
     dic['losses'] = losses
     dic['accuracies'] = accuracies
-    dic['testaccuracies'] = testaccuracies
+    # dic['testaccuracies'] = testaccuracies
 
 
     if (e+1) % SAVE_INTERVAL == 0:

@@ -1,0 +1,4 @@
+Loading checkpoint at model state 0
+Resuming Training after 1 epochs
+
+Testing after 1 epochs

@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--cuda', type = int, default = '0')
 args = parser.parse_args()
 
-dataset_list = ["DIGITS"]
+dataset_list = ["CIFAR10"]
 
 prev_ds = None
 for ds in dataset_list:
