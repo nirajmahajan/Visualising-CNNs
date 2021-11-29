@@ -50,7 +50,7 @@ TRAIN_BATCH_SIZE = 16
 TEST_BATCH_SIZE = 20
 lr = 1e-3
 SAVE_INTERVAL = 1
-NUM_EPOCHS = 50
+NUM_EPOCHS = 1
 torch.autograd.set_detect_anomaly(True)
 
 checkpoint_path = './checkpoints/{}/'.format(args.dataset)
@@ -156,12 +156,21 @@ def visualize(train = False):
     else:
         str_k = 'test'
         dloader = testloader
-    num_vis = 10
+    
+    if args.dataset == 'CIFAR10':
+        num_vis = 5
+    elif args.dataset == 'CIFAR100':
+        DataObject = CIFAR100
+        num_vis = 2
+    elif args.dataset == 'DIGITS':
+        num_vis = 10
     with torch.no_grad():
         stored_ims = torch.zeros(NUM_CLASSES, num_vis, 3, 224,224)
-        counter = torch.zeros(num_vis).int()
+        counter = torch.zeros(NUM_CLASSES).int()
         for batch_num,(images, labels) in tqdm(enumerate(dloader), desc = 'Visualising {} images'.format(str_k), total = len(dloader)):
             for ci in range(NUM_CLASSES):
+                if counter[ci] == num_vis:
+                    continue
                 indices = labels == ci
                 tnum = min(indices.sum(), num_vis-counter[ci])
                 stored_ims[ci, counter[ci]:counter[ci]+tnum,:,:,:] = images[indices][:tnum,:,:,:]
@@ -198,7 +207,7 @@ if args.eval:
     visualize(train = True)
     visualize(train = False)
     test(pre_e)
-    with open('status.txt', 'w') as f:
+    with open('status_{}.txt'.format(args.dataset), 'w') as f:
         f.write('1')
     os._exit(0)
 
@@ -208,9 +217,9 @@ for e in range(NUM_EPOCHS):
         continue
 
     l, a = train(e)
-    ta = test(e)
-    visualize(train = True)
-    visualize(train = False)
+    # visualize(train = True)
+    # visualize(train = False)
+    # ta = test(e)
     losses.append(l)
     accuracies.append(a)
     testaccuracies.append(ta)

@@ -57,6 +57,9 @@ class CIFAR10(Dataset):
     def __getitem__(self, i):
         return self.dataset[i]
 
+    def generate_index_mapping(self):
+        pass
+
     def __len__(self):
         return len(self.dataset)
 
@@ -69,6 +72,9 @@ class CIFAR100(Dataset):
 
     def __getitem__(self, i):
         return self.dataset[i]
+
+    def generate_index_mapping(self):
+        pass
 
     def __len__(self):
         return len(self.dataset)
